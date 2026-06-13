@@ -40,8 +40,8 @@ The `edit` command picks an edit model automatically; pass `--model` only to ove
 | Kling 3 | `fal-ai/kling-video/v3/standard/text-to-video` | 8 | 5, 10 | Best quality/speed balance. |
 | Kling 3 Pro | `fal-ai/kling-video/v3/pro/text-to-video` | 12 | 5, 10 | |
 | Veo 3 Fast | `fal-ai/veo3/fast` | 10 | 8 | **Synced audio.** |
-| Seedance Pro | `fal-ai/bytedance/seedance/v1/pro/text-to-video` | 12 | 5, 10 | 1080p, cinematic. |
-| Wan 2.5 | `fal-ai/wan-25-preview/text-to-video` | 10 | 5, 10 | 720p. Only 16:9/9:16/1:1. |
+| Seedance Pro | `fal-ai/bytedance/seedance/v1/pro/text-to-video` | 18 | 5, 10 | 1080p, cinematic. |
+| Wan 2.5 | `fal-ai/wan-25-preview/text-to-video` | 14 | 5, 10 | 720p. Only 16:9/9:16/1:1. |
 | Kling 2 Master | `fal-ai/kling-video/v2/master/text-to-video` | 15 | 5, 10 | Premium. |
 | Ray 2 (Luma) | `fal-ai/luma-dream-machine/ray-2` | 20 | 5, 9 | Cinematic aesthetics. |
 
@@ -55,7 +55,7 @@ The `edit` command picks an edit model automatically; pass `--model` only to ove
 | Kling 3 | `fal-ai/kling-video/v3/standard/image-to-video` | 8 | 5, 10 |
 | Veo 3 Fast | `fal-ai/veo3/fast/image-to-video` | 10 | 8 |
 | Kling 3 Pro | `fal-ai/kling-video/v3/pro/image-to-video` | 12 | 5, 10 |
-| Seedance Pro | `fal-ai/bytedance/seedance/v1/pro/image-to-video` | 12 | 5, 10 |
+| Seedance Pro | `fal-ai/bytedance/seedance/v1/pro/image-to-video` | 18 | 5, 10 |
 
 ## Lip sync
 

@@ -109,4 +109,8 @@ $PIXIL animate "gentle parallax, slow zoom, drifting fog" https://.../hero.png
 $PIXIL lipsync --image https://.../face.jpg --audio https://.../voice.mp3 --prompt "warm, friendly delivery"
 ```
 
-See [references/prompt-engineering.md](references/prompt-engineering.md) for prompt structure and aspect-ratio choices, and [references/troubleshooting.md](references/troubleshooting.md) for errors (401, insufficient credits, video timeouts, unsupported aspect ratios).
+## Chaining (the canvas / "Drobė" pattern)
+
+You can build multi-step creations by feeding one result into the next — generate an image, then `animate` it; or generate a scene, then `edit` your real logo onto it. The shell commands return the media URL, so capture it and pass it on: `IMG=$(pixil image "..."); pixil animate "slow zoom" "$IMG"`. This is exactly what Pixil's Drobė canvas does. Full recipes in [references/workflows.md](references/workflows.md).
+
+See [references/workflows.md](references/workflows.md) for chaining recipes, [references/prompt-engineering.md](references/prompt-engineering.md) for prompt structure and aspect-ratio choices, and [references/troubleshooting.md](references/troubleshooting.md) for errors (401, insufficient credits, video timeouts, unsupported aspect ratios).

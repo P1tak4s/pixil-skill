@@ -1,19 +1,28 @@
 ---
-version: 0.1.0
+version: 0.2.0
 name: pixil-generate
 description: |
-  Generate images and videos with Pixil's AI studio (fal.ai
-  models). Use when: "generate an image", "make a picture",
+  Generate images, video, audio and music with Pixil's AI
+  studio (fal.ai models). Works in English and Lithuanian.
+  Use when (EN): "generate an image", "make a picture",
   "create an ad image", "edit/restyle/combine these images",
-  "change the background", "make a video", "animate this
-  photo", "image-to-video", "produce a clip", "lip sync this
-  video", "make this portrait talk", "check my Pixil
-  credits", or "list Pixil models". Covers text-to-image,
-  image editing (1-6 references), text-to-video, image-to-
-  video with camera motion presets, and lip sync (video or
-  portrait + audio). Defaults: Nano Banana 2 for images,
-  Seedance Fast / Kling 3 for video. NOT for: branded ad
-  creatives tied to a saved brand profile (use pixil-ads).
+  "remove the background", "upscale/enhance this image",
+  "expand/outpaint this photo", "make a video", "animate this
+  photo", "extend this clip", "lip sync this video", "make
+  this portrait talk", "text to speech / voiceover",
+  "generate background music", "check my Pixil credits".
+  Use when (LT): "sukurk nuotrauka", "sugeneruok paveiksla",
+  "pakeisk fona / pasalink fona", "padidink raiska",
+  "isplesk kadra", "sukurk video", "atgaivink nuotrauka",
+  "prailgink video", "lupu sinchronizacija", "iverstk i
+  balsa / uzdubliuok", "sukurk muzika", "kiek turiu kreditu".
+  Covers text-to-image, image edit (1-6 refs), upscale,
+  background removal, outpaint, text-to-video, image-to-video
+  with camera motion, seamless video extension, lip sync,
+  text-to-speech (incl. Lithuanian) and music. Defaults: Nano
+  Banana 2 for images, Seedance Fast / Kling 3 for video. NOT
+  for: branded ad creatives tied to a saved brand profile
+  (use pixil-ads).
 argument-hint: "[prompt] [--image|--video <path-or-url>] [--model <id>] [--aspect 1:1|16:9|9:16]"
 allowed-tools: Bash
 ---
@@ -56,13 +65,31 @@ Drive Pixil's image/video generation through its MCP server. All commands go thr
 ```bash
 $PIXIL image  "<english prompt>" [--model <id>] [--aspect 1:1|16:9|9:16|4:3]
 $PIXIL edit   "<what to change>" <url1> [url2 ...]          # 1-6 reference images
+$PIXIL upscale  <image_url>                                 # enhance / 2x resolution
+$PIXIL removebg <image_url>                                 # -> transparent PNG cutout
+$PIXIL expand   <image_url> [--aspect 16:9|9:16|1:1] [--prompt "..."]   # outpaint
 $PIXIL video  "<english prompt>" [--model <id>] [--aspect 16:9] [--duration 5|10] [--motion dolly-in,orbit]
 $PIXIL animate "<motion description>" <image_url> [--motion ...]    # image-to-video
+$PIXIL extend  <video_url> [--duration 1-6] [--prompt "..."]   # seamless, continues last frame
 $PIXIL lipsync --audio <url> (--video <url> | --image <url>) [--prompt "..."]
+$PIXIL tts    "<text>" [--voice Rachel]    # text-to-speech, 29 langs incl. Lithuanian
+$PIXIL music  "<style / mood / instruments>" [--duration 30]   # background music, <=190s
 $PIXIL get <id>                 # re-fetch / resume a generation
 $PIXIL models                   # list models + credit costs
 $PIXIL credits                  # balance
 ```
+
+**Audio & tools.** `tts`, `music`, `upscale`, `removebg`, `expand` finish in
+seconds and print the result URL immediately. `extend` is a video op — the
+client polls to completion (1-3 min). To build a longer continuous shot, chain
+`extend` on its own output: `V=$(... ); V=$(pixil extend "$V" --duration 5)`.
+
+**Language.** Works in both Lithuanian and English. Chat back in whatever
+language the user wrote in, but **send the model an English `prompt`** — Pixil's
+models give noticeably better results in English, so translate the user's intent
+(e.g. LT "rami fortepijono muzika be vokalo" -> `music "calm solo piano, soft,
+no vocals"`). For `tts` the spoken `text` stays in the user's language (it speaks
+Lithuanian natively); only image/video/music *prompts* should be English.
 
 ## Picking a model
 

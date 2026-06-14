@@ -9,7 +9,7 @@
       "name": "pixil",
       "source": "./",
       "description": "Generate images and videos, edit and animate images, lip-sync, and create branded ad creatives through Pixil's AI studio (fal.ai models) via its MCP server.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "skills": [
         {
           "name": "generate",

@@ -64,6 +64,28 @@ The `edit` command picks an edit model automatically; pass `--model` only to ove
 | Kling Lipsync | `fal-ai/kling-video/lipsync/audio-to-video` | 8 | video + audio | 30s |
 | Sync Lipsync 2 | `fal-ai/sync-lipsync/v2` | 15 | video + audio | 20s |
 | InfiniteTalk | `fal-ai/infinitalk` | 18 | portrait photo + audio | ~6s |
+| OmniHuman 1.5 | `fal-ai/bytedance/omnihuman/v1.5` | 35 | portrait photo + audio | ~10s |
+
+## Video — extend (seamless, continues the last frame)
+
+| Model | ID | Credits | Notes |
+|---|---|---:|---|
+| LTX-2.3 Extend | `fal-ai/ltx-2.3/extend-video` | 8 / call | Adds 1-6s per call. Chain on its own output for a longer continuous shot. |
+
+## Audio — speech & music
+
+| Model | ID | Credits | Notes |
+|---|---|---:|---|
+| ElevenLabs Multilingual v2 (`tts`) | `fal-ai/elevenlabs/tts/multilingual-v2` | 3 | 29 languages incl. Lithuanian. `--voice` Rachel/Aria/Sarah/Roger/George… |
+| Stable Audio 2.5 (`music`) | `fal-ai/stable-audio-25/text-to-audio` | 5 | Background music up to 190s; `--duration` in seconds. |
+
+## Image tools (one image in -> one image out)
+
+| Op | ID | Credits | Notes |
+|---|---|---:|---|
+| Upscale (`upscale`) | `fal-ai/clarity-upscaler` | 4 | 2x sharper / higher resolution. |
+| Remove background (`removebg`) | `fal-ai/birefnet/v2` | 1 | Transparent PNG cutout. |
+| Expand / outpaint (`expand`) | `fal-ai/bria/expand` | 3 | Generates surroundings for a new `--aspect`. |
 
 ## Aspect ratios
 

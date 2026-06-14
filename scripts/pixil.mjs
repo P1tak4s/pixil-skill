@@ -116,6 +116,12 @@ Usage: PIXIL_TOKEN=pixil_xxx node pixil.mjs <command>
   video "<prompt>" [--model id] [--aspect 16:9] [--duration 5|10] [--motion dolly-in,orbit]
   animate "<prompt>" <image_url> [--motion ...]    image-to-video
   lipsync --audio <url> (--video <url> | --image <url>) [--prompt "..."]
+  extend <video_url> [--duration 1-6] [--prompt "..."]   seamless video extension
+  tts    "<text>" [--voice Rachel]     text-to-speech (29 langs incl. Lithuanian)
+  music  "<style/mood>" [--duration 30]   generate background music (<=190s)
+  upscale  <image_url>                 enhance / upscale 2x
+  removebg <image_url>                 remove background -> transparent PNG
+  expand   <image_url> [--aspect 16:9] [--prompt "..."]   outpaint to a new aspect
   get <id>                             fetch/poll a generation
   call <tool> '<json-args>'            raw MCP tool call
 
@@ -186,6 +192,53 @@ const cmd = argv.shift();
       if (f.image) a.image_url = f.image;
       if (f.prompt) a.prompt = f.prompt;
       const g = genOf(await tool('pixil_lipsync', a));
+      out(await waitFor(g.id));
+      break;
+    }
+    case 'tts': {
+      const { f, pos } = parseFlags(argv);
+      const text = pos[0] || die('usage: pixil tts "<text>" [--voice Rachel]');
+      const a = { text };
+      if (f.voice) a.voice = f.voice;
+      out(await tool('pixil_tts', a)); // audio finishes inline
+      break;
+    }
+    case 'music': {
+      const { f, pos } = parseFlags(argv);
+      const prompt = pos[0] || die('usage: pixil music "<style/mood/instruments>" [--duration 30]');
+      const a = { prompt };
+      if (f.duration) a.duration = Number(f.duration);
+      out(await tool('pixil_generate_music', a));
+      break;
+    }
+    case 'upscale': {
+      const { pos } = parseFlags(argv);
+      const url = pos[0] || die('usage: pixil upscale <image_url>');
+      out(await tool('pixil_upscale_image', { image_url: url }));
+      break;
+    }
+    case 'removebg': {
+      const { pos } = parseFlags(argv);
+      const url = pos[0] || die('usage: pixil removebg <image_url>');
+      out(await tool('pixil_remove_background', { image_url: url }));
+      break;
+    }
+    case 'expand': {
+      const { f, pos } = parseFlags(argv);
+      const url = pos[0] || die('usage: pixil expand <image_url> [--aspect 16:9|9:16|1:1] [--prompt "..."]');
+      const a = { image_url: url };
+      if (f.aspect) a.aspect_ratio = f.aspect;
+      if (f.prompt) a.prompt = f.prompt;
+      out(await tool('pixil_expand_image', a));
+      break;
+    }
+    case 'extend': {
+      const { f, pos } = parseFlags(argv);
+      const url = pos[0] || die('usage: pixil extend <video_url> [--duration 1-6] [--prompt "..."]');
+      const a = { video_url: url };
+      if (f.duration) a.duration = Number(f.duration);
+      if (f.prompt) a.prompt = f.prompt;
+      const g = genOf(await tool('pixil_extend_video', a)); // video is async
       out(await waitFor(g.id));
       break;
     }
